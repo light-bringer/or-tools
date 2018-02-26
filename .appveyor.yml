@@ -8,9 +8,11 @@ environment:
   matrix:
 # Makefile
   - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+    VS: 2017
     BUILDER: make
     LANGUAGE: cc
   - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+    VS: 2015
     BUILDER: make
     LANGUAGE: cc
 # CMake
@@ -32,15 +34,18 @@ before_build:
   - bash -c "python -V"
   - bash -c "python -m pip install virtualenv wheel"
   - cmake --version
-  - if %BUILDER%==cmake cmake -H. -Bbuild -DCMAKE_BUILD_TYPE=Release -G "%CMAKE_GENERATOR%"
-  - if %BUILDER%==make tools\make detect
+  - if "%BUILDER%"=="cmake" cmake -H. -Bbuild -DCMAKE_BUILD_TYPE=Release -G "%CMAKE_GENERATOR%"
+  - if "%BUILDER%"=="make" if "%VS%"=="2017" call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
+  - if "%BUILDER%"=="make" if "%VS%"=="2015" call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64
+  - if "%BUILDER%"=="make" if "%VS%"=="2015" call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
+  - if "%BUILDER%"=="make" tools\make detect
 
 build_script:
-  - if %BUILDER%==cmake cmake --build build --config Release --target ALL_BUILD -- %MSBUILD_FLAGS%
-  - if %BUILDER%==make tools\make third_party
-  - if %BUILDER%==make tools\make %LANGUAGE%
-  - if %BUILDER%==make tools\make test_%LANGUAGE%
+  - if "%BUILDER%"=="cmake" cmake --build build --config Release --target ALL_BUILD -- %MSBUILD_FLAGS%
+  - if "%BUILDER%==make" tools\make third_party
+  - if "%BUILDER%"=="make" tools\make %LANGUAGE%
+  - if "%BUILDER%"=="make" tools\make test_%LANGUAGE%
 
 test_script:
-  - if %BUILDER%==cmake cmake --build build --config Release --target RUN_TESTS
+  - if "%BUILDER%"=="cmake" cmake --build build --config Release --target RUN_TESTS
 
