@@ -55,7 +55,7 @@ if [ "${BUILDER}" == make ];then
 				make detect
 			elif [ "${LANGUAGE}" == python ]; then
 				make detect UNIX_PYTHON_VER=3.6
-			elif [ "${LANGUAGE}" == java ] || [ "${LANGUAGE}" == csharp ]; then
+			elif [ "${LANGUAGE}" == java ] || [ "${LANGUAGE}" == csharp ] || [ "${LANGUAGE}" == fsharp ]; then
 				make detect
 			fi
 			cat Makefile.local
