@@ -42,6 +42,7 @@ if [ "${BUILDER}" == make ]; then
 			elif [ "${LANGUAGE}" == csharp ]; then
 				installmono
 			elif [ "${LANGUAGE}" == fsharp ]; then
+				installmono
 				sudo apt-get -yqq install fsharp
 			fi
 		else
