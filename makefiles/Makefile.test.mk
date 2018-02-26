@@ -47,7 +47,6 @@ test_csharp_examples: \
 	$(MONO) $(BIN_DIR)$Scscvrptw$(CLR_EXE_SUFFIX).exe
 	$(MONO) $(BIN_DIR)$Stestlp$(CLR_EXE_SUFFIX).exe
 	$(MONO) $(BIN_DIR)$Stestcp$(CLR_EXE_SUFFIX).exe
-	$(MONO) $(BIN_DIR)$Stestcp$(CLR_EXE_SUFFIX).exe
 	$(MONO) $(BIN_DIR)$Stest_sat_model$(CLR_EXE_SUFFIX).exe
 
 test_fsharp_examples: fsharp
