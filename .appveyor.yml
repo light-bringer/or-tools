@@ -30,7 +30,14 @@ before_build:
   - git config --global user.email "ci@appveyor.com"
   - git config --global user.name "CI"
   - set PATH=C:\Python36-x64;%PATH%
-  - where python
+  - where python.exe
+  - where /F python.exe | tools\\sed.exe -n "/\".*\"/{p;q;}" | tools\\sed "s/\"//g"
+  - where csc.exe
+  - where /F csc.exe | tools\\sed.exe -n "/\".*\"/{p;q;}" | tools\\sed "s/\"//g"
+  - where fsc.exe
+  - where /F fsc.exe | tools\\sed.exe -n "/\".*\"/{p;q;}" | tools\\sed "s/\"//g"
+  - where nuget.exe
+  - where /F nuget.exe | tools\\sed.exe -n "/\".*\"/{p;q;}" | tools\\sed "s/\"//g"
   - python -V
   - python -m pip install virtualenv wheel
   - cmake --version
