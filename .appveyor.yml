@@ -30,9 +30,9 @@ before_build:
   - git config --global user.email "ci@appveyor.com"
   - git config --global user.name "CI"
   - set PATH=C:\Python36-x64;%PATH%
-  - bash -c "which python"
-  - bash -c "python -V"
-  - bash -c "python -m pip install virtualenv wheel"
+  - where python
+  - python -V
+  - python -m pip install virtualenv wheel
   - cmake --version
   - if "%BUILDER%"=="cmake" cmake -H. -Bbuild -DCMAKE_BUILD_TYPE=Release -G "%CMAKE_GENERATOR%"
   - if "%BUILDER%"=="make" if "%VS%"=="2017" call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
